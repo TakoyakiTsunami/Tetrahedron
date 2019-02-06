@@ -13,6 +13,7 @@ public class LaunchSprite : MonoBehaviour
     public KeyCode pressDown;
     public KeyCode pressLeft;
     public KeyCode pressRight;
+    public float speed = 4;
 
 
     void Start()
@@ -34,5 +35,10 @@ public class LaunchSprite : MonoBehaviour
         if (Input.GetKeyDown(pressDown))
             GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 180);
         //transform.Rotate(Vector3.forward * speedRotate * Time.deltaTime);
+
+        if (Input.GetKeyDown("space"))
+        {
+            rb2D.velocity = new Vector2(-speed * Mathf.Sin(GetComponent<Transform>().eulerAngles[2] / 180f * Mathf.PI), speed * Mathf.Cos(GetComponent<Transform>().eulerAngles[2] / 180f * Mathf.PI));
+        }
     }
 }
