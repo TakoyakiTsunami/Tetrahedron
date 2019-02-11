@@ -6,33 +6,37 @@ using System.Collections;
 
 public class LaunchSprite : MonoBehaviour
 {
-    public float speedRotate;
-    private Rigidbody2D rb2D;
+    private Rigidbody2D rb;
 
-    public KeyCode pressUp;
-    public KeyCode pressDown;
-    public KeyCode pressLeft;
-    public KeyCode pressRight;
+    public float rotation = 5.0f;
 
 
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown (pressUp))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 0);
+    
+        rotation += Input.GetAxis("Horizontal");
+        Quaternion sprite = Quaternion.Euler(0, 0, rotation);
 
-        if (Input.GetKeyDown (pressLeft))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 90);
+        // gameObject refers to object this script is attached to
+        // Thus, there's no need for GetComponent
+        gameObject.transform.rotation = Quaternion.Slerp(transform.rotation, sprite, Time.deltaTime);
 
-        if (Input.GetKeyDown(pressRight))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, -90);
 
-        if (Input.GetKeyDown(pressDown))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 180);
-        //transform.Rotate(Vector3.forward * speedRotate * Time.deltaTime);
     }
+
+
+    // LAUNCHING PHYSICS
+    // When you press spacebar, add a force to rigidbody 2D
+    // Force must be in a direction towards what it's ortated at
+
+    // Whenever you press the launch button, take the rotation of the object,
+    // make it a Vector3, and multiple it by some force value 
+
+
 }
