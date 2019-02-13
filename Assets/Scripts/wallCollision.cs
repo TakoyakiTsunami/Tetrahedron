@@ -18,7 +18,7 @@ public class wallCollision : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.getComponent<LaunchSprite>())
+        if (collision.gameObject.GetComponent<LaunchSprite>())
         {
 //            collision.gameObject
         }
