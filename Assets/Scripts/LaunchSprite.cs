@@ -10,6 +10,11 @@ public class LaunchSprite : MonoBehaviour
 
     public float thrust = 50;
     public float rotation = 5.0f;
+    public KeyCode pressUp;
+    public KeyCode pressDown;
+    public KeyCode pressLeft;
+    public KeyCode pressRight;
+    public float speed = 4;
 
 
     void Start()
