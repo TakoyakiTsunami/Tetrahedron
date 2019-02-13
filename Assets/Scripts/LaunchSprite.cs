@@ -8,6 +8,7 @@ public class LaunchSprite : MonoBehaviour
 {
     private Rigidbody2D rb;
 
+    public float thrust = 50;
     public float rotation = 5.0f;
 
 
@@ -19,24 +20,17 @@ public class LaunchSprite : MonoBehaviour
 
     void Update()
     {
-    
-        rotation += Input.GetAxis("Horizontal");
-        Quaternion sprite = Quaternion.Euler(0, 0, rotation);
+        // Make sprite launch on spacebar press
+        if (Input.GetKey(KeyCode.Space))
+        {
+            rb.AddRelativeForce(Vector3.up);
+        }
+        else
+        {
+            rotation += Input.GetAxis("Horizontal");
 
-        // gameObject refers to object this script is attached to
-        // Thus, there's no need for GetComponent
-        gameObject.transform.rotation = Quaternion.Slerp(transform.rotation, sprite, Time.deltaTime);
-
-
+            // gameObject refers to object this script is attached to
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, rotation);
+        }
     }
-
-
-    // LAUNCHING PHYSICS
-    // When you press spacebar, add a force to rigidbody 2D
-    // Force must be in a direction towards what it's ortated at
-
-    // Whenever you press the launch button, take the rotation of the object,
-    // make it a Vector3, and multiple it by some force value 
-
-
 }

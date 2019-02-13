@@ -270,7 +270,7 @@ Transform:
   m_GameObject: {fileID: 1515945929}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.7, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.15, y: 0.15, z: 0.15}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -287,7 +287,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.0001
+  m_Mass: 0.01
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -308,8 +308,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805f76d97dee74740a609d1f5d985ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedRotate: 20
-  pressUp: 119
-  pressDown: 115
-  pressLeft: 97
-  pressRight: 100
+  thrust: 1
+  rotation: 5
