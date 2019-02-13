@@ -6,9 +6,10 @@ using System.Collections;
 
 public class LaunchSprite : MonoBehaviour
 {
-    public float speedRotate;
-    private Rigidbody2D rb2D;
+    private Rigidbody2D rb;
 
+    public float thrust = 50;
+    public float rotation = 5.0f;
     public KeyCode pressUp;
     public KeyCode pressDown;
     public KeyCode pressLeft;
@@ -18,27 +19,23 @@ public class LaunchSprite : MonoBehaviour
 
     void Start()
     {
-        rb2D = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+
     }
 
     void Update()
     {
-        if (Input.GetKeyDown (pressUp))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 0);
-
-        if (Input.GetKeyDown (pressLeft))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 90);
-
-        if (Input.GetKeyDown(pressRight))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, -90);
-
-        if (Input.GetKeyDown(pressDown))
-            GetComponent<Transform>().eulerAngles = new Vector3(0, 0, 180);
-        //transform.Rotate(Vector3.forward * speedRotate * Time.deltaTime);
-
-        if (Input.GetKeyDown("space"))
+        // Make sprite launch on spacebar press
+        if (Input.GetKey(KeyCode.Space))
         {
-            rb2D.velocity = new Vector2(-speed * Mathf.Sin(GetComponent<Transform>().eulerAngles[2] / 180f * Mathf.PI), speed * Mathf.Cos(GetComponent<Transform>().eulerAngles[2] / 180f * Mathf.PI));
+            rb.AddRelativeForce(Vector3.up);
+        }
+        else if (Input.GetAxis("Horizontal") != 0.0f)
+        {
+            Vector3 tempRotation = gameObject.transform.rotation.eulerAngles;
+
+            // gameObject refers to object this script is attached to
+            gameObject.transform.rotation = Quaternion.Euler(tempRotation.x, tempRotation.y, tempRotation.z + (rotation * Input.GetAxis("Horizontal")));
         }
     }
 }
