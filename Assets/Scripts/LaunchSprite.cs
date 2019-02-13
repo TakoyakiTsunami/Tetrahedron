@@ -30,12 +30,12 @@ public class LaunchSprite : MonoBehaviour
         {
             rb.AddRelativeForce(Vector3.up);
         }
-        else if(Input.GetAxis("Horizontal") != 0.0f)
+        else
         {
-            Vector3 tempRotation = gameObject.transform.rotation.eulerAngles;
+            rotation += Input.GetAxis("Horizontal");
 
             // gameObject refers to object this script is attached to
-            gameObject.transform.rotation = Quaternion.Euler(tempRotation.x, tempRotation.y, tempRotation.z + (rotation * Input.GetAxis("Horizontal")));
+            gameObject.transform.rotation = Quaternion.Euler(0, 0, rotation);
         }
     }
 }
