@@ -51,12 +51,12 @@ public class LaunchSprite : MonoBehaviour
         }
     }
 
-    public int getState()
+    public CharacterState getState()
     {
         return state;
     }
 
-    public void setState(int NewState)
+    public void setState(CharacterState NewState)
     {
         state = NewState;
     }
