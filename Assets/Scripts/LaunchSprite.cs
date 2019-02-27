@@ -8,13 +8,9 @@ public class LaunchSprite : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float thrust = 50;
-    public float rotation = 5.0f;
-    public KeyCode pressUp;
-    public KeyCode pressDown;
-    public KeyCode pressLeft;
-    public KeyCode pressRight;
-    public float speed = 4;
+    public float thrust = 1;
+    private float rotation = 5.0f;
+    private float thrustLimit = 100;
 
 
     void Start()
@@ -25,10 +21,15 @@ public class LaunchSprite : MonoBehaviour
 
     void Update()
     {
-        // Make sprite launch on spacebar press
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && thrust < thrustLimit)
         {
-            rb.AddRelativeForce(Vector3.up);
+            thrust += Time.deltaTime * 5;
+            Debug.Log("Power: " + thrust);
+        }
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            rb.AddRelativeForce(Vector3.up * thrust);
         }
 
         else if (Input.GetAxis("Horizontal") != 0.0f)
