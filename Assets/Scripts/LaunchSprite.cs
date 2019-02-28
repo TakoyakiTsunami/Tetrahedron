@@ -8,7 +8,8 @@ public class LaunchSprite : MonoBehaviour
 {
     public enum CharacterState
     {
-        Launchable,
+        Landed,
+        Launchable, // Switch Launchable to Launching
         InAir
     }
 
@@ -36,6 +37,14 @@ public class LaunchSprite : MonoBehaviour
             Debug.Log("Power: " + thrust);
         }
 
+
+        // Cancel launching 
+        if (state == CharacterState.Launchable && Input.GetKey(KeyCode.LeftShift))
+        {
+            state = CharacterState.Landed;
+            Debug.Log("ABORT LAUNCHING!" + state);
+        }
+
         if (state == CharacterState.Launchable && Input.GetKeyUp(KeyCode.Space))
         {
             rb.AddRelativeForce(Vector3.up * thrust);
@@ -44,6 +53,13 @@ public class LaunchSprite : MonoBehaviour
 
         else if (Input.GetAxis("Horizontal") != 0.0f)
         {
+            // TODO LIST
+            // Figure out how to handle rotation (which character states?)
+            // Include a power bar above the character when you are launching
+            // Depending on the thrust, it will fill up
+            // When you abort, the spacebar will disappear
+            // Look up a tutorial for it; 
+
             Vector3 tempRotation = gameObject.transform.rotation.eulerAngles;
 
             // gameObject refers to object this script is attached to
