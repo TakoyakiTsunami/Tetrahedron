@@ -2,6 +2,7 @@
 // The sprite is set a rotation speed.
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class LaunchSprite : MonoBehaviour
@@ -16,24 +17,35 @@ public class LaunchSprite : MonoBehaviour
     private CharacterState state;
 
     private Rigidbody2D rb;
+    public float thrust;
 
-    public float thrust = 1;
     private float rotation = 5.0f;
     private float thrustLimit = 100;
+    public Text powerText;
+
+    public Slider powerSlider;
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        thrust = 1;
         state = CharacterState.Launchable;
+
+        // Initialize value of the text component
+        setPowerText ();
 
     }
 
     void Update()
     {
+        Debug.Log("SLIDER VALUE: " + powerSlider.value);
+
         if (state == CharacterState.Launchable && Input.GetKey(KeyCode.Space) && thrust < thrustLimit)
         {
             thrust += Time.deltaTime * 5;
+            setPowerText();
+            updatePowerSlider();
             Debug.Log("Power: " + thrust);
         }
 
@@ -53,18 +65,22 @@ public class LaunchSprite : MonoBehaviour
 
         else if (Input.GetAxis("Horizontal") != 0.0f)
         {
-            // TODO LIST
-            // Figure out how to handle rotation (which character states?)
-            // Include a power bar above the character when you are launching
-            // Depending on the thrust, it will fill up
-            // When you abort, the spacebar will disappear
-            // Look up a tutorial for it; 
 
             Vector3 tempRotation = gameObject.transform.rotation.eulerAngles;
 
             // gameObject refers to object this script is attached to
             gameObject.transform.rotation = Quaternion.Euler(tempRotation.x, tempRotation.y, tempRotation.z + (rotation * Input.GetAxis("Horizontal")));
         }
+    }
+
+    void setPowerText()
+    {
+        powerText.text = "Power: " + thrust.ToString();
+    }
+
+    void updatePowerSlider()
+    {
+        powerSlider.value += thrust / 100;
     }
 
     public CharacterState getState()
