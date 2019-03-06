@@ -14,6 +14,9 @@ public class LaunchSprite : MonoBehaviour
         InAir
     }
 
+    private int MAXBOUNCECOUNT = 1;
+    public int remainingBounceCount;
+
     private CharacterState state;
 
     private Rigidbody2D rb;
@@ -31,6 +34,7 @@ public class LaunchSprite : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         thrust = 1;
         state = CharacterState.Launchable;
+        remainingBounceCount = MAXBOUNCECOUNT;
 
         // Initialize value of the text component
         setPowerText ();
@@ -56,12 +60,26 @@ public class LaunchSprite : MonoBehaviour
             state = CharacterState.Landed;
             Debug.Log("ABORT LAUNCHING!" + state);
         }
-
-        if (state == CharacterState.Launchable && Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            rb.AddRelativeForce(Vector3.up * thrust);
-            state = CharacterState.InAir;
+            if (state == CharacterState.Launchable && thrust < thrustLimit)
+            {
+                thrust += Time.deltaTime * 5;
+                Debug.Log("Power: " + thrust);
+            }
         }
+        
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            if (state == CharacterState.Launchable)
+            {
+                rb.AddRelativeForce(Vector3.up * thrust);
+                state = CharacterState.InAir;
+                thrust = 1;
+            }
+        }
+
+        
 
         else if (Input.GetAxis("Horizontal") != 0.0f)
         {
@@ -91,5 +109,16 @@ public class LaunchSprite : MonoBehaviour
     public void setState(CharacterState NewState)
     {
         state = NewState;
+    }
+
+    public void setState(int NewState)
+    {
+        state = (CharacterState)NewState;
+        Debug.Log("set character state to " + ((CharacterState)NewState).ToString());
+    }
+
+    public void resetBounceCount()
+    {
+        remainingBounceCount = MAXBOUNCECOUNT;
     }
 }

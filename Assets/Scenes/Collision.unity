@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 1270434590}
   - component: {fileID: 1270434589}
   - component: {fileID: 1270434588}
+  - component: {fileID: 1270434591}
   m_Layer: 0
   m_Name: normalWall
   m_TagString: Untagged
@@ -332,6 +333,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1270434591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270434587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8261724c1ec88834b82d1bed09f4dbf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSticky: 0
 --- !u!1 &1681515806
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,6 +609,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b505b766f5f96840841e0369f4e719d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score: 0
 --- !u!114 &1758231775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,8 +620,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1516ad5a2d19067448b2aeeee2568d70, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!70 &1758231776
@@ -637,13 +650,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 805f76d97dee74740a609d1f5d985ea4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  remainingBounceCount: 0
   thrust: 1
-  rotation: 5
-  pressUp: 0
-  pressDown: 0
-  pressLeft: 0
-  pressRight: 0
-  speed: 4
 --- !u!50 &1758231778
 Rigidbody2D:
   serializedVersion: 4
