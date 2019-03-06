@@ -24,13 +24,20 @@ public class wallCollision : MonoBehaviour
         Debug.Log(collision.gameObject.GetComponent<LaunchSprite>());
         if (collision.gameObject.GetComponent<LaunchSprite>())
         {
-            if (isSticky)
+            var ls = collision.gameObject.GetComponent<LaunchSprite>();
+            if (isSticky || (ls.remainingBounceCount == 0))
             {
                 Rigidbody2D playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
                 playerRb.velocity = new Vector2(0, 0);
                 playerRb.angularVelocity = 0;
                 collision.gameObject.transform.Rotate(new Vector3(0, 0, 0));
-                Debug.Log("Sticky Collision registered.");
+                ls.setState(0);
+                ls.resetBounceCount();
+                //Debug.Log("Sticky Collision registered, set state to launchable");
+            }
+            else
+            {
+                ls.remainingBounceCount--;
             }
         }
     }
